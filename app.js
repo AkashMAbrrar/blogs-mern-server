@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import cors from 'cors';
 import router from './routes/user.route';
+import blogRouter from './routes/blogs-routes';
 
 const app = express();
 
@@ -17,7 +18,8 @@ mongoose.connect("mongodb://localhost:27017/blogs-services", (err) => {
 });
 
 // routers
-app.use("/api/user", router)
+app.use("/api/user", router);
+app.use("/api/blog", blogRouter);
 
 // root api
 app.use("/", (req, res) => {
