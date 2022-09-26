@@ -29,4 +29,23 @@ export const addBlogs = async (req, res, next) => {
         return console.log(error);
     }
     return res.status(200).json({ blog })
+};
+// controller for updates blogs
+
+export const updateBlog = async (req, res, next) => {
+    const { title, description } = req.body;
+    const blogId = req.params.id;
+    let blog;
+    try {
+        blog = await Blog.findByIdAndUpdate(blogId, {
+            title,
+            description
+        })
+    } catch (error) {
+        return console.log(error)
+    }
+    if (!blog) {
+        return res.status(500).json({ message: "Unable to updates the blogs" })
+    }
+    return res.status(200).json({ blog })
 }
